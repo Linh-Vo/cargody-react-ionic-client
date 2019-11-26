@@ -31,3 +31,6 @@ keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -valid
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.jks ./android/app/build/outputs/apk/release/app-releas 
 e-unsigned.apk my-alias
 
+/path/to/Android/sdk/build-tools/VERSION/zipalign/
+
+./zipalign -v 4 path\to\android\app\build\outputs\apk\release\app-release-unsigned.apk new\path\release.apk
