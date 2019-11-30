@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, withIonLifeCycle, useIonViewDidEnter, useIonViewDidLeave, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -22,16 +22,36 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import authService from './services/authService';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" component={Home} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  // => Start auth flow here
+  authService.tryLogin();
+  useIonViewDidEnter(() => {
+    console.log('ionViewDidEnter event fired');
+  });
+
+  useIonViewDidLeave(() => {
+    console.log('ionViewDidLeave event fired');
+  });
+
+  useIonViewWillEnter(() => {
+    console.log('ionViewWillEnter event fired');
+  });
+
+  useIonViewWillLeave(() => {
+    console.log('ionViewWillLeave event fired');
+  });
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route path="/home" component={Home} exact={true} />
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  )
+};
 
 export default App;

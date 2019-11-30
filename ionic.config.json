@@ -1,5 +1,7 @@
 {
   "name": "cargody-react-ionic-client",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }

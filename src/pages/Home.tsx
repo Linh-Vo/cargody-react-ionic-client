@@ -1,7 +1,31 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import React from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewDidEnter, useIonViewDidLeave, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
+import React, { useState } from 'react';
+import authService from '../services/authService';
 
 const Home: React.FC = () => {
+  const [token, setToken] = useState('token');
+  const [error, setErrorToken] = useState('errorToken');
+  useIonViewDidEnter(() => {
+    console.log('Home ionViewDidEnter event fired');
+  });
+
+  useIonViewDidLeave(() => {
+    console.log('Home ionViewDidLeave event fired');
+  });
+
+  useIonViewWillEnter(() => {
+    authService.getAccessTokenSubscription().subscribe((resultToken) => {
+      setToken(resultToken);
+    }, (err) => {
+      setErrorToken(err);
+    });
+    console.log('Home ionViewWillEnter event fired', authService.getAccessTokenSubscription().getValue());
+  });
+
+  useIonViewWillLeave(() => {
+    console.log('Home ionViewWillLeave event fired');
+  });
+
   return (
     <IonPage>
       <IonHeader>
@@ -17,6 +41,10 @@ const Home: React.FC = () => {
             docs
           </a>{' '}
           will be your guide.
+          <br></br>
+          Token is {token}
+          <br></br>
+          Error is {error}
         </p>
       </IonContent>
     </IonPage>
