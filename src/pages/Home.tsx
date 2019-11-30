@@ -1,10 +1,13 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewDidEnter, useIonViewDidLeave, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import React, { useState } from 'react';
 import authService from '../services/authService';
+import userDataService from './userDataService';
+import { User } from '../_models/userModel';
 
 const Home: React.FC = () => {
   const [token, setToken] = useState('token');
   const [error, setErrorToken] = useState('errorToken');
+  const [currentUser, setCurrentUser] = useState<User>({});
   useIonViewDidEnter(() => {
     console.log('Home ionViewDidEnter event fired');
   });
@@ -16,6 +19,13 @@ const Home: React.FC = () => {
   useIonViewWillEnter(() => {
     authService.getAccessTokenSubscription().subscribe((resultToken) => {
       setToken(resultToken);
+      userDataService.getUserInfo()
+        .then((userDataResult) => {
+          setCurrentUser(userDataResult.data);
+        })
+        .catch(err => {
+          console.log(err);
+        }); 
     }, (err) => {
       setErrorToken(err);
     });
@@ -41,6 +51,8 @@ const Home: React.FC = () => {
             docs
           </a>{' '}
           will be your guide.
+          <br></br>
+          User name is {currentUser.UserName}
           <br></br>
           Token is {token}
           <br></br>
