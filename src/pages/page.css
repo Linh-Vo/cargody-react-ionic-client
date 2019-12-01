@@ -1,0 +1,13 @@
+.form__content {
+    padding-top: 16px;
+    padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+.form__text-field {
+}
+.form__text-field-container {
+    margin-bottom: 8px;
+    width: 100%;
+}

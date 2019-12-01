@@ -26,11 +26,10 @@ const Home: React.FC = () => {
         })
         .catch(err => {
           console.log(err);
-        }); 
+        });
     }, (err) => {
       setErrorToken(err);
     });
-    console.log('Home ionViewWillEnter event fired', authService.getAccessTokenSubscription().getValue());
   });
 
   useIonViewWillLeave(() => {
@@ -49,14 +48,7 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        The world is your oyster.
         <p>
-          If you get lost, the{' '}
-          <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/">
-            docs
-          </a>{' '}
-          will be your guide.
-          <br></br>
           User name is {currentUser.UserName}
           <br></br>
           Token is {token}

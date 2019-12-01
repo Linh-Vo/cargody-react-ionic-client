@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, withIonLifeCycle, useIonViewDidEnter, useIonViewDidLeave, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
+import { IonApp, IonRouterOutlet, withIonLifeCycle, useIonViewDidEnter, useIonViewDidLeave, useIonViewWillEnter, useIonViewWillLeave, IonTabBar, IonTabButton, IonIcon, IonLabel, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -26,6 +26,10 @@ import authService from './services/authService';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core';
 import { purple, green } from '@material-ui/core/colors';
+import Details from './pages/Details';
+import Tab2 from './pages/Tab2';
+import UserAccount from './pages/UserAccount';
+import { flash, apps, send } from 'ionicons/icons';
 
 const App: React.FC = () => {
   // => Start auth flow here
@@ -55,12 +59,43 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <IonApp>
         <IonReactRouter>
+          <IonTabs>
+            <IonRouterOutlet>
+              <Route path="/home" component={Home} exact={true} />
+              <Route path="/tab2" component={Tab2} exact={true} />
+              <Route path="/tab2/details" component={Details} />
+              <Route path="/account" component={UserAccount} />
+              <Route exact path="/" render={() => <Redirect to="/home" />} />
+            </IonRouterOutlet>
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="home" href="/home">
+                <IonIcon icon={flash} />
+                <IonLabel>Home</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="tab2" href="/tab2">
+                <IonIcon icon={apps} />
+                <IonLabel>Tab Two</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="account" href="/account">
+                <IonIcon icon={send} />
+                <IonLabel>Account</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        </IonReactRouter>
+      </IonApp>
+      {/* <IonApp>
+        <IonReactRouter>
           <IonRouterOutlet>
             <Route path="/home" component={Home} exact={true} />
+            <Route path="/tab2" component={Tab2} exact={true} />
+            <Route path="/tab2/details" component={Details} />
+            <Route path="/tab3" component={UserAccountPage} />
             <Route exact path="/" render={() => <Redirect to="/home" />} />
           </IonRouterOutlet>
         </IonReactRouter>
-      </IonApp>
+
+      </IonApp> */}
     </ThemeProvider>
   )
 };

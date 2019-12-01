@@ -18,4 +18,16 @@ export class User {
     public Email?: string;
     public Roles?: any[];
     public PhoneNumber?: string;
+    constructor() {
+        this.Id = '';
+        this.UserName = '';
+        this.FirstName = '';
+        this.LastName = '';
+        this.RegisterIP = '';
+        this.LastAccessIP = '';
+        this.Gender = '';
+        this.Email = '';
+        this.Roles = [];
+        this.PhoneNumber = '';
+    }
 }
