@@ -166,6 +166,7 @@ class AuthService {
     }
 
     logout() {
+        // TODO: need to implement clear session on server later
         this.storage.removeItem(this.accessTokenStorageKey);
         this.accessTokenSubject.next(null);
         this.tryLogin();

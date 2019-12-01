@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import authService from '../services/authService';
 import userDataService from './userDataService';
 import { User } from '../_models/userModel';
+import Button from '@material-ui/core/Button';
 
 const Home: React.FC = () => {
   const [token, setToken] = useState('token');
@@ -36,6 +37,10 @@ const Home: React.FC = () => {
     console.log('Home ionViewWillLeave event fired');
   });
 
+  const onLogOutClicked = () => {
+    authService.logout();
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -58,6 +63,7 @@ const Home: React.FC = () => {
           <br></br>
           Error is {error}
         </p>
+        <Button variant="contained" color="primary" onClick={onLogOutClicked}>Logout</Button>
       </IonContent>
     </IonPage>
   );
