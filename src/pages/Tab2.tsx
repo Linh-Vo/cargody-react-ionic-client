@@ -1,13 +1,14 @@
 import React from 'react';
 import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import CargodyHeader from '../_shared/CargodyHeader';
 
 const Tab2: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab Two</IonTitle>
-        </IonToolbar>
+        <CargodyHeader>
+          Tab 2
+        </CargodyHeader>
       </IonHeader>
       <IonContent>
         <IonList>

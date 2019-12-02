@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import authService from '../services/authService';
 import userDataService from './userDataService';
 import { User } from '../_models/userModel';
-import Button from '@material-ui/core/Button';
+import CargodyHeader from '../_shared/CargodyHeader';
 
 const Home: React.FC = () => {
   const [token, setToken] = useState('token');
@@ -36,26 +36,17 @@ const Home: React.FC = () => {
     console.log('Home ionViewWillLeave event fired');
   });
 
-  const onLogOutClicked = () => {
-    authService.logout();
-  };
-
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Ionic Blank</IonTitle>
-        </IonToolbar>
+        <CargodyHeader>
+          Home
+        </CargodyHeader>
       </IonHeader>
       <IonContent className="ion-padding">
         <p>
           User name is {currentUser.UserName}
-          <br></br>
-          Token is {token}
-          <br></br>
-          Error is {error}
         </p>
-        <Button variant="contained" color="primary" onClick={onLogOutClicked}>Logout</Button>
       </IonContent>
     </IonPage>
   );

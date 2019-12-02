@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { IonHeader, IonToolbar, IonPage, IonTitle, IonContent, useIonViewWillEnter, IonToast, IonInput } from '@ionic/react';
+import { IonHeader, IonPage, IonContent, useIonViewWillEnter, IonToast, IonInput, IonIcon, IonAvatar } from '@ionic/react';
 import { User } from '../_models/userModel';
 import authService from '../services/authService';
 import userDataService from './userDataService';
-import { TextField, Container } from '@material-ui/core';
+import { TextField, Container, Button } from '@material-ui/core';
 import './page.css';
+import { save, undo } from 'ionicons/icons';
+import CargodyHeader from '../_shared/CargodyHeader';
 
 const UserAccount: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User>(new User());
@@ -27,8 +29,6 @@ const UserAccount: React.FC = () => {
           });
         });
     }, (err) => {
-
-      // setErrorToken(err);
     });
   });
   const showErrorToastFunction = (isShow: boolean) => {
@@ -61,25 +61,58 @@ const UserAccount: React.FC = () => {
     });
   }
 
+  const onPhoneNumberChange = (event) => {
+    setEditCurrentUserModel({
+      ...editCurrentUserModel,
+      PhoneNumber: event.target.value
+    });
+  }
+
+  const anyEditableFieldChanged = () => {
+    return editCurrentUserModel.Email !== currentUser.Email
+      || editCurrentUserModel.FirstName !== currentUser.FirstName
+      || editCurrentUserModel.LastName !== currentUser.LastName
+      || editCurrentUserModel.PhoneNumber !== currentUser.PhoneNumber;
+  }
+
+  const onResetButtonClicked = () => {
+    setEditCurrentUserModel({ ...currentUser });
+  }
+
+  const onSaveButtonClicked = () => {
+    userDataService.updateUserInfo(editCurrentUserModel)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser.data);
+        setEditCurrentUserModel({ ...updatedUser.data });
+      })
+      .catch((error) => {
+        setShowErrorToast({
+          show: true,
+          message: error
+        });
+      });
+  }
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>User account</IonTitle>
-        </IonToolbar>
+        <CargodyHeader>
+          User Account
+        </CargodyHeader>
       </IonHeader>
       <IonContent>
         <Container maxWidth="sm">
-          {editCurrentUserModel.Email}
-          {editCurrentUserModel.FirstName}
-          {editCurrentUserModel.LastName}
           <form className="form__content" noValidate autoComplete="off">
             <div className="form__text-field-container">
-
               <TextField className="form__text-field" label="Email address"
                 variant="outlined"
                 value={editCurrentUserModel.Email || ''}
                 onChange={onEmailChange} />
+            </div>
+            <div className="form__text-field-container">
+              <TextField className="form__text-field" label="Phone number"
+                variant="outlined"
+                value={editCurrentUserModel.PhoneNumber || ''}
+                onChange={onPhoneNumberChange} />
             </div>
             <div className="form__text-field-container">
               <TextField className="form__text-field" label="First name"
@@ -93,6 +126,29 @@ const UserAccount: React.FC = () => {
                 value={editCurrentUserModel.LastName || ''}
                 onChange={onLastNameChange} />
             </div>
+            {anyEditableFieldChanged() === false
+              ? ""
+              : (<div className="form__actions-container">
+                <div className="form__action-item">
+                  <Button color="secondary"
+                    variant="text"
+                    startIcon={<IonIcon icon={undo}
+                      onClick={onResetButtonClicked} />}>
+                    Reset
+                </Button>
+                </div>
+                <div className="form__action-item">
+                  <Button color="primary"
+                    className="form__action-item"
+                    variant="contained"
+                    startIcon={<IonIcon icon={save}
+                      onClick={onSaveButtonClicked} />}>
+                    Save
+                </Button>
+                </div>
+              </div>)
+            }
+
           </form>
         </Container>
         <IonToast

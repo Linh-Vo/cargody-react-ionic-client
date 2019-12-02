@@ -12,6 +12,11 @@ export class BaseDataService {
         return axios.get<T>(url, axiosConfig);
     }
 
+    protected put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+        var axiosConfig = this.requestOptionsWithHeaders(config);
+        return axios.put<T>(url, data, axiosConfig);
+    }
+
     private requestOptionsWithHeaders(config?: AxiosRequestConfig): AxiosRequestConfig {
         var authorizationHeaderValue = `Bearer ${authService.getAccessTokenSubscription().getValue()}`;
         if (config === undefined) {

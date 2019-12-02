@@ -1,13 +1,22 @@
+
 .form__content {
-    padding-top: 16px;
-    padding-bottom: 8px;
+    padding-top: 24px;
+    padding-bottom: 16px;
     display: flex;
     flex-direction: column;
     align-content: space-between;
 }
 .form__text-field {
+    width: 100%;
 }
 .form__text-field-container {
-    margin-bottom: 8px;
+    margin-bottom: 24px;
     width: 100%;
+}
+.form__actions-container {
+    display: flex;
+    justify-content: flex-end;
+}
+.form__action-item {
+    margin-right: 16px;
 }

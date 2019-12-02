@@ -7,6 +7,11 @@ class UserDataService extends BaseDataService {
     public getUserInfo() {
         return this.get<User>(`${appConstant.apiUrl}/user/contact-info`);
     }
+
+    public updateUserInfo(editUserModel: User) {
+        return this.put<User>(`${appConstant.apiUrl}/user/contact-info`,
+            editUserModel);
+    }
 }
 const userDataService = new UserDataService();
 export default userDataService;

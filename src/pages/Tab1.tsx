@@ -18,14 +18,15 @@ import {
 import { book, build, colorFill, grid } from 'ionicons/icons';
 import React from 'react';
 import './Tab1.css';
+import CargodyHeader from '../_shared/CargodyHeader';
 
 const Tab1: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab One</IonTitle>
-        </IonToolbar>
+        <CargodyHeader>
+          Home
+        </CargodyHeader>
       </IonHeader>
       <IonContent>
         <IonCard className="welcome-card">
