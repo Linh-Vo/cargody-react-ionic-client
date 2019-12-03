@@ -1,15 +1,17 @@
 # cargody-react-ionic-client
 
-#run
+# run
 
 ionic serve
-# update web code & resources to android platform
-run: npx cap sync
-#build android
+
+# build android
 
 ionic build && ionic capacitor add android
 
-#build apk unsigned
+# update web code & resources to android platform
+Update dependencies & copy web assets: npx cap sync (if any dependencies needs to update. For example: cordova-plugin-inappbrowser)
+Copy web assets only: npx cap copy
+# build apk unsigned
 
 cd android
 
@@ -32,7 +34,7 @@ window: gradlew installDebug
 # Troubleshooting methods
 https://capacitor.ionicframework.com/docs/android/troubleshooting/
 
-#build apk signed
+# build apk signed
 
 keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
 

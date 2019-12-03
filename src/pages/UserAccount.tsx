@@ -3,10 +3,11 @@ import { IonHeader, IonPage, IonContent, useIonViewWillEnter, IonToast, IonInput
 import { User } from '../_models/userModel';
 import authService from '../services/authService';
 import userDataService from './userDataService';
-import { TextField, Container, Button } from '@material-ui/core';
+import { TextField, Container, Button, CircularProgress, LinearProgress, Divider } from '@material-ui/core';
 import './page.css';
 import { save, undo } from 'ionicons/icons';
 import CargodyHeader from '../_shared/CargodyHeader';
+import CargodyProgressBar from '../_shared/CargodyProgressBar';
 
 const UserAccount: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User>(new User());
@@ -15,8 +16,10 @@ const UserAccount: React.FC = () => {
     show: false,
     message: ''
   });
+  const [loading, setLoading] = useState<boolean>(false);
   useIonViewWillEnter(() => {
     authService.getAccessTokenSubscription().subscribe((resultToken) => {
+      setLoading(true);
       userDataService.getUserInfo()
         .then((userDataResult) => {
           setCurrentUser(userDataResult.data);
@@ -27,6 +30,9 @@ const UserAccount: React.FC = () => {
             show: true,
             message: JSON.stringify(err)
           });
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }, (err) => {
     });
@@ -80,6 +86,7 @@ const UserAccount: React.FC = () => {
   }
 
   const onSaveButtonClicked = () => {
+    setLoading(true);
     userDataService.updateUserInfo(editCurrentUserModel)
       .then((updatedUser) => {
         setCurrentUser(updatedUser.data);
@@ -90,10 +97,14 @@ const UserAccount: React.FC = () => {
           show: true,
           message: error
         });
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
   return (
     <IonPage>
+      <CargodyProgressBar loading={loading}/>
       <IonHeader>
         <CargodyHeader>
           User Account
@@ -104,6 +115,7 @@ const UserAccount: React.FC = () => {
           <form className="form__content" noValidate autoComplete="off">
             <div className="form__text-field-container">
               <TextField className="form__text-field" label="Email address"
+                disabled
                 variant="outlined"
                 value={editCurrentUserModel.Email || ''}
                 onChange={onEmailChange} />
@@ -142,7 +154,7 @@ const UserAccount: React.FC = () => {
                     className="form__action-item"
                     variant="contained"
                     startIcon={<IonIcon icon={save}
-                      onClick={onSaveButtonClicked} />}>
+                    onClick={onSaveButtonClicked} />}>
                     Save
                 </Button>
                 </div>

@@ -13,6 +13,9 @@
     margin-bottom: 24px;
     width: 100%;
 }
+.form__text-field-container label {
+    background-color: #fff;
+}
 .form__actions-container {
     display: flex;
     justify-content: flex-end;
