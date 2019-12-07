@@ -29,7 +29,7 @@ import { purple, green } from '@material-ui/core/colors';
 import Details from './pages/Details';
 import Tab2 from './pages/Tab2';
 import UserAccount from './pages/UserAccount';
-import { flash, apps, send } from 'ionicons/icons';
+import { flash, apps, send, person, home } from 'ionicons/icons';
 
 const App: React.FC = () => {
   // => Start auth flow here
@@ -69,7 +69,7 @@ const App: React.FC = () => {
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
               <IonTabButton tab="home" href="/home">
-                <IonIcon icon={flash} />
+                <IonIcon icon={home} />
                 <IonLabel>Home</IonLabel>
               </IonTabButton>
               <IonTabButton tab="tab2" href="/tab2">
@@ -77,7 +77,7 @@ const App: React.FC = () => {
                 <IonLabel>Tab Two</IonLabel>
               </IonTabButton>
               <IonTabButton tab="account" href="/account">
-                <IonIcon icon={send} />
+                <IonIcon icon={person} />
                 <IonLabel>Account</IonLabel>
               </IonTabButton>
             </IonTabBar>

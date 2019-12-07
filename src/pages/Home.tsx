@@ -4,11 +4,13 @@ import authService from '../services/authService';
 import userDataService from './userDataService';
 import { User } from '../_models/userModel';
 import CargodyHeader from '../_shared/CargodyHeader';
+import CargodyProgressBar from '../_shared/CargodyProgressBar';
 
 const Home: React.FC = () => {
   const [token, setToken] = useState('token');
   const [error, setErrorToken] = useState('errorToken');
   const [currentUser, setCurrentUser] = useState<User>({});
+  const [loading, setLoading] = useState<boolean>(false);
   useIonViewDidEnter(() => {
     console.log('Home ionViewDidEnter event fired');
   });
@@ -18,11 +20,13 @@ const Home: React.FC = () => {
   });
 
   useIonViewWillEnter(() => {
+    setLoading(true);
     authService.getAccessTokenSubscription().subscribe((resultToken) => {
       setToken(resultToken);
       userDataService.getUserInfo()
         .then((userDataResult) => {
           setCurrentUser(userDataResult.data);
+          setLoading(false);
         })
         .catch(err => {
           console.log(err);
@@ -33,11 +37,11 @@ const Home: React.FC = () => {
   });
 
   useIonViewWillLeave(() => {
-    console.log('Home ionViewWillLeave event fired');
   });
 
   return (
     <IonPage>
+      <CargodyProgressBar loading={loading}/>
       <IonHeader>
         <CargodyHeader>
           Home

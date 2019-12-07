@@ -10,10 +10,10 @@ export class AuthConfig {
 export const authConfig: AuthConfig = {
     clientId: 'angular_practice',
     returnUrl: window.location.origin,
-    loginUrl: 'http://localhost:8081/authService/login',
-    issuer: 'http://localhost:8081',
-    // loginUrl: 'http://207.148.99.251/authService/login',
-    // issuer: 'http://207.148.99.251',
+    // loginUrl: 'http://localhost:8081/authService/login',
+    // issuer: 'http://localhost:8081',
+    loginUrl: 'http://207.148.99.251/authService/login',
+    issuer: 'http://207.148.99.251',
     scope: 'profile email',
     responseType: 'token',
     storage: localStorage
