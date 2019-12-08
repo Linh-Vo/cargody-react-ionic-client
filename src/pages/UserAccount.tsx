@@ -144,8 +144,8 @@ const UserAccount: React.FC = () => {
                 <div className="form__action-item">
                   <Button color="secondary"
                     variant="text"
-                    startIcon={<IonIcon icon={undo}
-                      onClick={onResetButtonClicked} />}>
+                    onClick={onResetButtonClicked}
+                    startIcon={<IonIcon icon={undo}/>}>
                     Reset
                 </Button>
                 </div>
@@ -153,8 +153,8 @@ const UserAccount: React.FC = () => {
                   <Button color="primary"
                     className="form__action-item"
                     variant="contained"
-                    startIcon={<IonIcon icon={save}
-                    onClick={onSaveButtonClicked} />}>
+                    onClick={onSaveButtonClicked}
+                    startIcon={<IonIcon icon={save}/>}>
                     Save
                 </Button>
                 </div>
